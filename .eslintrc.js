@@ -7,6 +7,7 @@ module.exports = {
     es2020: true,
     browser: true,
     node: true,
+    jest: true
   },
   extends: ['eslint:recommended', 'prettier'],
 }
