@@ -1,4 +1,5 @@
-const visit = require('unist-builder')
+const visit = require('unist-util-visit')
+const fetch = require('./fetchOGP')
 
 const h = (type, attrs = {}, children = []) => {
   return {
@@ -14,19 +15,22 @@ const h = (type, attrs = {}, children = []) => {
   }
 }
 
+const t = (value) => {
+  return {
+    type: 'text',
+    value,
+  }
+}
+
 module.exports = () => (tree) => {
   visit(tree, 'link', (node) => {
-    const { children = [] } = node
     if (node.url !== node.children[0].value) return
 
     node.children = [
-      h('div', { className: 'border-2 border-gray-300 dark:border-gray-600' }, [
-        {
-          type: 'text',
-          value: 'a',
-        },
+      h('div', { className: 'link-card' }, [
+        h('iframe', { className: 'link-card--text', 'src': `https://hatenablog-parts.com/embed?url=${node.url}`  }),
       ]),
     ]
-    console.log(node.children)
+    return node
   })
 }
