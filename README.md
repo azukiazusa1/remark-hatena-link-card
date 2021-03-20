@@ -13,9 +13,9 @@ npm innstall remark-hatena-link-card
 * markdown
 
 ```
-[https://example.com](https://example.com)
+[https://github.com/azukiazusa1](https://github.com/azukiazusa1)
 
-[some example text](https://example.com)
+[my profile](https://github.com/azukiazusa1)
 ```
 
 * script
@@ -36,6 +36,8 @@ processor.process.then(({ contents }) => console.log(contents)
 * output
 
 ```html
-<p><div class="link-card"><iframe class="link-card--iframe" src="https://hatenablog-parts.com/embed?url=https://example.com"></iframe></div></p>
-<p><a href="https://example.com">some example text</a></p>
+<p><div class="link-card"><iframe class="link-card--iframe" src="https://hatenablog-parts.com/embed?url=https://github.com/azukiazusa1"></iframe></div></p>
+<p><a href="https://github.com/azukiazusa1">my profile</a></p>
 ```
+
+![](./sample-card.png)
