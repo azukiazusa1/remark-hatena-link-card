@@ -2,14 +2,14 @@
   "name": "remark-link-card",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "jest",
     "fmt": "prettier --write .  && eslint --fix"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "azukiazusa",
+  "license": "MIT",
   "dependencies": {
     "unist-util-visit": "^2.0.3"
   },
