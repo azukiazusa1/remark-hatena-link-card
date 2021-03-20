@@ -17,4 +17,4 @@ jobs:
           reporter: github-pr-review
           eslint_flags: './**/*.{ts,js}'
       - name: eslint
-        run: npm run lint
+        run: npm run fmt
