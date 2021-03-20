@@ -1,5 +1,4 @@
 const visit = require('unist-util-visit')
-const fetch = require('./fetchOGP')
 
 const h = (type, attrs = {}, children = []) => {
   return {
@@ -23,14 +22,14 @@ const t = (value) => {
 }
 
 module.exports = () => (tree) => {
-  visit(tree, 'link', (node) => {
+  visit(tree, 'link', (node, index, parent) => {
     if (node.url !== node.children[0].value) return
 
     node.children = [
       h('div', { className: 'link-card' }, [
-        h('iframe', { className: 'link-card--text', 'src': `https://hatenablog-parts.com/embed?url=${node.url}`  }),
+        h('iframe', { className: 'link-card--iframe', src: `https://hatenablog-parts.com/embed?url=${node.url}` }),
       ]),
     ]
-    return node
+    parent.children.splice(index, 1, ...node.children)
   })
 }

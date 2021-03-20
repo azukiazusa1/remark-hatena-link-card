@@ -2,20 +2,27 @@
 
 const fs = require('fs')
 const path = require('path')
-const unified = require('unified')
-const markdown = require('remark-parse')
-const remark2rehype = require('remark-rehype')
-const html = require('rehype-stringify')
-const remarkCardLink = require('../index')
+const remark = require('remark')
+const html = require('remark-html')
+const remarkCardLink = require('../src/index')
 
 const base = path.join(__dirname, 'fixtures')
-const doc = fs.readFileSync(base + '/test.md', 'utf-8')
+const processor = remark().use(remarkCardLink).use(html)
 
 describe('test remark-card-tilte', () => {
-  test('it', async () => {
-    const processor = unified().use(markdown).use(remarkCardLink).use(remark2rehype).use(html)
+  test('same link and text', async () => {
+    const doc = fs.readFileSync(base + '/sameLinkAndText.md', 'utf-8')
 
     const { contents } = await processor.process(doc)
-    expect(contents).toEqual('<p><a href="https://zenn.dev/steelydylan/articles/zenn-web-components"><div class="link-card"><div class="link-card--text"><div class="link-card--title">Web Componentsを利用したZennマークダウン部分の改善について</div><div class="link-card--description"></div><div class="link-card--meta">Zenn</div></div></div></a></p>')
+    expect(contents).toEqual(
+      '<p><div class="link-card"><iframe class="link-card--iframe" src="https://hatenablog-parts.com/embed?url=https://example.com"></iframe></div></p>\n',
+    )
+  })
+
+  test('not same link and text', async () => {
+    const doc = fs.readFileSync(base + '/notSameLinkAndText.md', 'utf-8')
+
+    const { contents } = await processor.process(doc)
+    expect(contents).toEqual('<p><a href="https://example.com">some example text</a></p>\n')
   })
 })
