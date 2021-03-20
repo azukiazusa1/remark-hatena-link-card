@@ -1,0 +1,29 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. 
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '11.12.x'
+    - name: npm install
+      run: npm install
+    - name: Run jest test
+      run: npm run test:coverage
+    - name: Upload test coverage artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: coverage
+        path: coverage
