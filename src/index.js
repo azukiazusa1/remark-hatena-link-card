@@ -14,13 +14,6 @@ const h = (type, attrs = {}, children = []) => {
   }
 }
 
-const t = (value) => {
-  return {
-    type: 'text',
-    value,
-  }
-}
-
 module.exports = () => (tree) => {
   visit(tree, 'link', (node, index, parent) => {
     if (node.url !== node.children[0].value) return
