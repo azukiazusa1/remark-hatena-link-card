@@ -25,4 +25,11 @@ describe('test remark-card-tilte', () => {
     const { contents } = await processor.process(doc)
     expect(contents).toEqual('<p><a href="https://example.com">some example text</a></p>\n')
   })
+
+  test('link and other text line', async () => {
+    const doc = fs.readFileSync(base + '/urlAndOtherText.md', 'utf-8')
+
+    const { contents } = await processor.process(doc)
+    expect(contents).toEqual('<p><a href="https://example.com">https://example.com</a> url and other text line.</p>\n')
+  })
 })

@@ -16,7 +16,7 @@ const h = (type, attrs = {}, children = []) => {
 
 module.exports = () => (tree) => {
   visit(tree, 'link', (node, index, parent) => {
-    if (node.url !== node.children[0].value) return
+    if (parent.children.length > 1 || node.url !== node.children[0].value) return
 
     node.children = [
       h('div', { className: 'link-card' }, [
